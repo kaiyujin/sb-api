@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.kaiyujin'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 10
 
 repositories {
     mavenCentral()
@@ -28,6 +28,10 @@ repositories {
 
 ext {
     springCloudVersion = 'Finchley.BUILD-SNAPSHOT'
+}
+
+jar {
+    archiveName = 'app.jar'
 }
 
 dependencies {
@@ -45,7 +49,8 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('org.postgresql:postgresql')
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
-    compileOnly('org.projectlombok:lombok')
+    //compileOnly file('org.projectlombok:lombok')
+    compile files('lib/lombok-edge.jar')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('io.projectreactor:reactor-test')
     testCompile('org.springframework.security:spring-security-test')
