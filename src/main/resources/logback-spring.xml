@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <!-- http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html -->
+
+  <!-- spring boot の設定を読む -->
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+  <!--ローカル環境及びテスト環境では、INFO レベル以上を console に出力する -->
+  <springProfile name="!production">
+    <root level="INFO">
+      <appender-ref ref="CONSOLE"/>
+    </root>
+  </springProfile>
+
+  <springProfile name="production">
+    <!-- release,staging 環境では、アプリケーションログはログファイルに書く。ログレベルは INFO -->
+    <include resource="logback/appender/logback-file.xml"/>
+    <root level="INFO">
+      <appender-ref ref="ASYNC_APPLICATION_LOG_FILE"/>
+    </root>
+
+    <!-- production  環境では、jetty のアクセスログをファイルに書いておく。-->
+    <property name="JETTY_LOG_FILE" value="${LOG_PATH}/jetty/${project}-request.log"/>
+    <appender name="REQUEST_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>${JETTY_LOG_FILE}</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	<fileNamePattern>${JETTY_LOG_FILE}.%d{yyyyMMdd}.gz</fileNamePattern>
+	<maxHistory>30</maxHistory>
+      </rollingPolicy>
+      <encoder>
+	<pattern>%msg %X%n</pattern>
+      </encoder>
+    </appender>
+    <logger name="org.eclipse.jetty.server.RequestLog" level="INFO" additivity="false">
+      <appender-ref ref="REQUEST_LOG_FILE"/>
+    </logger>
+  </springProfile>
+
+</configuration>
