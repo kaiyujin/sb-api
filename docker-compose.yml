@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:10
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
       - ./docker/postgres/volumes:/var/lib/postgres
     environment:
