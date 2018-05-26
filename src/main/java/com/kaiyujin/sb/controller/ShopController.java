@@ -8,13 +8,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/shops")
@@ -45,5 +41,15 @@ public class ShopController {
             throw new HTTPNotFoundException();
         }
         return shop.get();
+    }
+
+    @RequestMapping(value="", method=RequestMethod.POST)
+    public Shop create(@ModelAttribute ShopDTO shopDTO) {
+        return shopService.save(shopDTO);
+    }
+
+    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
+    public Shop update(@ModelAttribute ShopDTO shopDTO, @PathVariable Long id) {
+        return shopService.save(id,shopDTO);
     }
 }
