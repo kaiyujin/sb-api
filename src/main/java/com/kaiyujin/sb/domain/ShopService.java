@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 
 @Service
@@ -17,5 +18,9 @@ public class ShopService {
 
     public Page<Shop> findShops(Pageable pageable){
         return shopRepository.findAll(pageable);
+    }
+
+    public Optional<Shop> findById(Long id){
+        return shopRepository.findById(id);
     }
 }
