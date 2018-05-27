@@ -1,4 +1,4 @@
-package com.kaiyujin.sb.domain;
+package com.kaiyujin.sb.domain.shop;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

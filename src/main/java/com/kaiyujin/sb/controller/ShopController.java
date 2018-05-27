@@ -1,7 +1,7 @@
 package com.kaiyujin.sb.controller;
 
-import com.kaiyujin.sb.domain.Shop;
-import com.kaiyujin.sb.domain.ShopService;
+import com.kaiyujin.sb.domain.shop.Shop;
+import com.kaiyujin.sb.domain.shop.ShopService;
 import com.kaiyujin.sb.exception.HTTPNotFoundException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,12 +29,12 @@ public class ShopController {
                             "Default sort order is ascending. " +
                             "Multiple sort criteria are supported.")
     })
-    @RequestMapping(value="", method=RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<Shop> getShops(Pageable pageable) {
         return shopService.findShops(pageable);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Shop getShop(@PathVariable("id") Long id, HttpServletResponse res) {
         var shop = shopService.findById(id);
         if (!shop.isPresent()) {
@@ -43,13 +43,13 @@ public class ShopController {
         return shop.get();
     }
 
-    @RequestMapping(value="", method=RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Shop create(@ModelAttribute ShopDTO shopDTO) {
         return shopService.save(shopDTO);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public Shop update(@ModelAttribute ShopDTO shopDTO, @PathVariable Long id) {
-        return shopService.save(id,shopDTO);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public Shop update(@PathVariable Long id, @ModelAttribute ShopDTO shopDTO) {
+        return shopService.save(id, shopDTO);
     }
 }

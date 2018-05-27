@@ -1,4 +1,4 @@
-package com.kaiyujin.sb.domain;
+package com.kaiyujin.sb.domain.shop;
 
 import com.kaiyujin.sb.controller.ShopDTO;
 import org.springframework.beans.BeanUtils;
@@ -18,26 +18,26 @@ public class ShopService {
     @Autowired
     ShopRepository shopRepository;
 
-    public Page<Shop> findShops(Pageable pageable){
+    public Page<Shop> findShops(Pageable pageable) {
         return shopRepository.findAll(pageable);
     }
 
-    public Optional<Shop> findById(Long id){
+    public Optional<Shop> findById(Long id) {
         return shopRepository.findById(id);
     }
 
-    public Shop save(ShopDTO shopDTO){
-
+    public Shop save(ShopDTO shopDTO) {
         var shop = new Shop();
-        BeanUtils.copyProperties(shopDTO,shop);
+        BeanUtils.copyProperties(shopDTO, shop);
+
         return shopRepository.save(shop);
     }
 
-    public Shop save(Long id, ShopDTO shopDTO){
-
+    public Shop save(Long id, ShopDTO shopDTO) {
         var shop = new Shop();
         shop.setId(id);
-        BeanUtils.copyProperties(shopDTO,shop);
+        BeanUtils.copyProperties(shopDTO, shop);
+
         return shopRepository.save(shop);
     }
 }
