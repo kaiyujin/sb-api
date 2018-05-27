@@ -8,9 +8,11 @@ import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/shops")
@@ -44,12 +46,12 @@ public class ShopController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public Shop create(@ModelAttribute ShopDTO shopDTO) {
+    public Shop create(@Validated ShopDTO shopDTO) {
         return shopService.save(shopDTO);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Shop update(@PathVariable Long id, @ModelAttribute ShopDTO shopDTO) {
+    public Shop update(@PathVariable Long id, @Validated ShopDTO shopDTO) {
         return shopService.save(id, shopDTO);
     }
 }
