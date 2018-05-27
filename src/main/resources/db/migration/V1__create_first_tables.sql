@@ -19,6 +19,8 @@ CREATE TABLE shops
   email text NOT NULL,
   -- 国ID
   -- country_id smallint NOT NULL,
+  -- 時間ID
+  --
   -- 都市ID
   -- state_id smallint NOT NULL,
   -- 市区町村ID
