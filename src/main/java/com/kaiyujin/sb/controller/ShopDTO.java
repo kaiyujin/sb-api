@@ -4,8 +4,7 @@ import lombok.Data;
 
 @Data
 public class ShopDTO {
-
     private String name;
-
     private String phoneNumber;
+    private String email;
 }

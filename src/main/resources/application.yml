@@ -15,5 +15,5 @@ spring:
     port: 6379
   jpa:
     database: postgresql
-#flyway:
-  #enabled: true
+  flyway:
+    enabled: true

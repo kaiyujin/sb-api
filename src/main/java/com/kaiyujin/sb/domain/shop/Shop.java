@@ -8,9 +8,10 @@ import javax.validation.constraints.Size;
 
 @Data
 @Entity
+@Table(name = "shops")
 public class Shop extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -19,4 +20,7 @@ public class Shop extends BaseEntity {
 
     @Column(nullable = false)
     private String phoneNumber;
+
+    @Column(nullable = false)
+    private String email;
 }

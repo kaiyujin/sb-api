@@ -15,14 +15,14 @@ import java.sql.Timestamp;
 public class BaseEntity {
     @CreatedBy
     @Column(updatable = false)
-    private String createdBy;
+    private long createdBy;
 
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdAt;
 
     @LastModifiedBy
-    private String updatedBy;
+    private long updatedBy;
 
     @UpdateTimestamp
     private Timestamp updatedAt;

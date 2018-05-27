@@ -29,6 +29,9 @@ public class ShopService {
     public Shop save(ShopDTO shopDTO) {
         var shop = new Shop();
         BeanUtils.copyProperties(shopDTO, shop);
+        //TODO remove
+        shop.setCreatedBy(1);
+        shop.setUpdatedBy(1);
 
         return shopRepository.save(shop);
     }
@@ -37,6 +40,8 @@ public class ShopService {
         var shop = new Shop();
         shop.setId(id);
         BeanUtils.copyProperties(shopDTO, shop);
+        //TODO remove
+        shop.setUpdatedBy(1);
 
         return shopRepository.save(shop);
     }
