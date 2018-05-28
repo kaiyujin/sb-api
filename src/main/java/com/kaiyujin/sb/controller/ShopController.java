@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,13 +46,13 @@ public class ShopController {
         return shop.get();
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public Shop create(@Validated ShopDTO shopDTO) {
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public Shop create(@RequestBody @Validated ShopDTO shopDTO) {
         return shopService.save(shopDTO);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Shop update(@PathVariable Long id, @Validated ShopDTO shopDTO) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public Shop update(@PathVariable Long id,@RequestBody @Validated ShopDTO shopDTO) {
         return shopService.save(id, shopDTO);
     }
 }
