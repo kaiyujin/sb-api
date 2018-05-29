@@ -43,6 +43,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-webflux')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile group: 'javax.interceptor', name: 'javax.interceptor-api', version: '1.2'
     compile('org.flywaydb:flyway-core')
     compile("io.springfox:springfox-swagger2:${swaggerVersion}")
     compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
@@ -52,7 +54,7 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('org.postgresql:postgresql')
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
-    //compileOnly file('org.projectlombok:lombok')
+    // compileOnly file('org.projectlombok:lombok') not use for jdk version
     compile files('lib/lombok-edge.jar')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('io.projectreactor:reactor-test')
