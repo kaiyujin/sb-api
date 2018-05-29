@@ -1,0 +1,7 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/sb
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres

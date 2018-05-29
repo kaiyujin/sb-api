@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      args:
+        - JAR_FILE=./build/libs/api.jar
+    environment:
+      - profile=local-docker
+    container_name: "sb-api"
+    ports:
+      - "8080:8080"
+    links:
+      - db
+      - redis
+  db:
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker/volumes/postgres/volumes:/var/lib/postgres
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
