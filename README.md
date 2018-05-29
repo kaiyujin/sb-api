@@ -10,10 +10,12 @@ docker-compose up -d
 psql -h localhost -U postgres -c 'creata database sb;'
 ```
 ```
-./gradlew build
+./gradlew clean build -x test
 java -jar build/libs/api.jar
 ```
 or  
 `./gradlew bootRun`
 ## specification
 <http://localhost:8080/swagger-ui.html>
+
+docker-compose -f docker-compose-and-app.yml up --build
