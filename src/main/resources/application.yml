@@ -15,5 +15,6 @@ spring:
     port: 6379
   jpa:
     database: postgresql
+    show-sql: true
   flyway:
     enabled: true
