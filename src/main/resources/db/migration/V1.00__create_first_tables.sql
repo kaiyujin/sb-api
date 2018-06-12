@@ -71,6 +71,8 @@ CREATE TABLE companies
   building text NOT NULL,
   -- 会社代表番号
   telephone_number text NOT NULL,
+  -- テスト店舗
+  is_test boolean NOT NULL,
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
@@ -88,7 +90,7 @@ CREATE TABLE sections
   -- セクションID
   id bigserial NOT NULL UNIQUE,
   -- セクション名
-  name text NOT NULL,
+  name varchar(255) NOT NULL,
   -- 会社ID
   cpmpany_id bigint not null references companies(id),
   -- 作成したユーザーID
@@ -131,11 +133,10 @@ CREATE TABLE shops
   -- city_id bigint NOT NULL,
   -- 店舗の郵便番号
   -- postal_code text NOT NULL,
-  -- ステータス
+  -- ステータス 1:有効 2:解約 3:閉店
   -- status_id smallint NOT NULL,
   -- 表示順番
-  -- display_order smallint NOT NULL,
-  -- 作成したユーザーID
+  display_order smallint NOT NULL,
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
@@ -224,8 +225,6 @@ CREATE TABLE tables
   minimun_capacity smallint NOT NULL,
   -- 最大収容人数
   maximum_capacity smallint NOT NULL,
-  -- カラーID
-  color_id smallint NOT NULL,
   -- 1: 禁煙, 2: 喫煙, 3: 指定なし
   smoking_type smallint NOT NULL,
   -- 表示順番
@@ -240,3 +239,18 @@ CREATE TABLE tables
   updated_at timestamp with time zone NOT NULL,
   PRIMARY KEY (id)
 );
+
+-- 予約-テーブル交差テーブル
+CREATE TABLE reservations_tables
+(
+  -- 予約ID
+  reservation_id bigint NOT NULL references reservations(id),
+  -- テーブルID
+  table_id bigint NOT NULL references tables(id),
+  -- 作成したユーザーID
+  created_by bigint NOT NULL references users(id),
+  -- 作成日時
+  created_at timestamp with time zone NOT NULL,
+  PRIMARY KEY (reservation_id, table_id)
+);
+
