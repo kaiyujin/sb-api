@@ -28,6 +28,7 @@ CREATE TABLE countries
   -- ISO 3166-1 alpha-3
   code char(3) NOT NULL UNIQUE,
   name text NOT NULL,
+  itu_code varchar(2) NOT NULL,
   PRIMARY KEY (code)
 );
 

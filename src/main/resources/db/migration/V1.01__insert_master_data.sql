@@ -3,9 +3,9 @@ insert into users (password, name, email, is_admin, created_by, created_at, upda
   ('test', 'admin', 'test@test.com', true, 1, now(), 1, now())
 ;
 -- 国マスタ
-insert into countries(code, name) values
-  ('JPN', 'Japan'),
-  ('VNM', 'Vietnam')
+insert into countries(code, name, itu_code) values
+  ('JPN', 'Japan','81'),
+  ('VNM', 'Vietnam','84')
 ;
 -- 言語マスタ
 insert into languages(code, name) values
