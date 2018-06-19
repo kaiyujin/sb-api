@@ -71,8 +71,10 @@ CREATE TABLE companies
   -- ビル名
   building text NOT NULL,
   -- 会社代表番号
-  telephone_number text NOT NULL,
-  -- テスト店舗
+  phone_number text NOT NULL,
+  -- 会社のメールアドレス
+  email varchar(255) NOT NULL,
+  -- テストデータ
   is_test boolean NOT NULL,
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
@@ -93,7 +95,7 @@ CREATE TABLE sections
   -- セクション名
   name varchar(255) NOT NULL,
   -- 会社ID
-  cpmpany_id bigint not null references companies(id),
+  company_id bigint not null references companies(id),
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
@@ -113,7 +115,7 @@ CREATE TABLE shops
   -- 店名
   name varchar(255) NOT NULL,
   -- セクションID
-  -- section_id bigint NOT NULL,
+  section_id bigint NOT NULL,
   -- ジャンルID
   -- genre_id smallint NOT NULL,
   -- 店舗の web サイトURL
