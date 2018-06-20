@@ -23,4 +23,13 @@ public class Shop extends BaseEntity {
 
     @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String countryCode;
+
+    @Column(nullable = false)
+    private String timezoneCode;
+
+    @Column(nullable = false)
+    private Integer displayOrder;
 }

@@ -20,4 +20,16 @@ public class ShopDTO {
     @Length(max = 255)
     @Pattern(regexp = "^([\\w])+([\\w\\._-])*\\@([\\w])+([\\w\\._-])*\\.([a-zA-Z])+$")
     private String email;
+
+    @NotBlank
+    @Length(max = 3)
+    private String countryCode;
+
+    @NotBlank
+    @Length(max = 3)
+    private String timezoneCode;
+
+    @NotBlank
+    @Length(max = 999)
+    private Integer displayOrder;
 }
