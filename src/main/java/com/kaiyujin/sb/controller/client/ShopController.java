@@ -50,7 +50,7 @@ public class ShopController {
         return shopService.save(shopDTO);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, consumes=MediaType.APPLICATION_JSON_VALUE)
     public Shop update(@PathVariable Long id,@RequestBody @Validated ShopDTO shopDTO) {
         return shopService.save(id, shopDTO);
     }

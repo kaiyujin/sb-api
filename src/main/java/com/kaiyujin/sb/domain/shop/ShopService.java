@@ -37,8 +37,7 @@ public class ShopService {
     }
 
     public Shop save(Long id, ShopDTO shopDTO) {
-        var shop = new Shop();
-        shop.setId(id);
+        var shop = findById(id).get();
         BeanUtils.copyProperties(shopDTO, shop);
         //TODO remove
         shop.setUpdatedBy(1);
