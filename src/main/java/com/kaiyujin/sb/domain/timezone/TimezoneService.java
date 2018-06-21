@@ -1,4 +1,4 @@
-package com.kaiyujin.sb.domain.country;
+package com.kaiyujin.sb.domain.timezone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -9,14 +9,15 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CountryService {
+public class TimezoneService {
 
     @Autowired
-    CountryRepository countryRepository;
+    TimezoneRepository timezoneRepository;
 
-    @Cacheable(cacheNames = "countries")
-    public List<Country> findAll() {
-        return countryRepository.findAllByOrderByCode();
+    @Cacheable(cacheNames = "timezones")
+    public List<Timezone> findAll() {
+        return timezoneRepository.findAllByOrderByCode();
     }
 
 }
+

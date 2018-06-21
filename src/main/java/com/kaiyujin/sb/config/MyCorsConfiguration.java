@@ -18,7 +18,7 @@ public class MyCorsConfiguration {
         config.addAllowedOrigin(CorsConfiguration.ALL);
         config.addAllowedHeader(CorsConfiguration.ALL);
         config.addAllowedMethod(CorsConfiguration.ALL);
-        config.addAllowedOrigin("https://localhost:3000");
+        config.addAllowedOrigin("https://localhost:3000");//TODO change URL
         source.registerCorsConfiguration("/api/**", config);
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 

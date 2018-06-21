@@ -1,4 +1,4 @@
-package com.kaiyujin.sb.controller;
+package com.kaiyujin.sb.controller.client;
 
 import com.kaiyujin.sb.domain.shop.Shop;
 import com.kaiyujin.sb.domain.shop.ShopService;
@@ -13,10 +13,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/shops")
+@RequestMapping("/api/client/shops")
 public class ShopController {
 
     @Autowired

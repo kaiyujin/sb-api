@@ -1,4 +1,4 @@
-package com.kaiyujin.sb.controller;
+package com.kaiyujin.sb.controller.client;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
