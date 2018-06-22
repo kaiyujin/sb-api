@@ -215,6 +215,29 @@ CREATE TABLE reservations
   PRIMARY KEY (id)
 );
 
+-- 予約個人情報
+CREATE TABLE reservation_personal_data
+(
+  -- 予約ID
+  reservation_id bigint NOT NULL references reservations(id),
+  -- email
+  email varchar(255) NOT NULL,
+  -- 電話番号
+  phone_number text NOT NULL,
+  -- 国ID
+  country_code char(3) NOT NULL references countries(code),
+  -- 作成したユーザーID
+  created_by bigint NOT NULL references users(id),
+  -- 作成日時
+  created_at timestamp with time zone NOT NULL,
+  -- 更新したユーザーID
+  updated_by bigint references users(id),
+  -- 更新日時
+  updated_at timestamp with time zone NOT NULL,
+  PRIMARY KEY (reservation_id)
+);
+
+
 -- テーブルマスタ
 CREATE TABLE tables
 (
@@ -257,3 +280,26 @@ CREATE TABLE reservations_tables
   PRIMARY KEY (reservation_id, table_id)
 );
 
+-- 共通テーブルタイプマスタ
+CREATE TABLE table_types
+(
+  -- 共通テーブルタイプID
+  id smallint NOT NULL UNIQUE,
+  -- テーブルタイプ名
+  name text NOT NULL,
+  PRIMARY KEY (id)
+);
+
+-- テーブル-テーブルタイプ交差テーブル
+CREATE TABLE tables_sheet_types
+(
+  -- テーブルID
+  table_id bigint NOT NULL references tables(id),
+  -- 共通テーブルタイプID
+  table_type_id smallint NOT NULL references table_types(id),
+  -- 作成したユーザーID
+  created_by bigint NOT NULL references users(id),
+  -- 作成日時
+  created_at timestamp with time zone NOT NULL,
+  PRIMARY KEY (table_id,table_type_id)
+);
