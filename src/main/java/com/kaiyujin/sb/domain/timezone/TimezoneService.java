@@ -1,6 +1,6 @@
 package com.kaiyujin.sb.domain.timezone;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +9,10 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class TimezoneService {
 
-    @Autowired
-    TimezoneRepository timezoneRepository;
+    private final TimezoneRepository timezoneRepository;
 
     @Cacheable(cacheNames = "timezones")
     public List<Timezone> findAll() {

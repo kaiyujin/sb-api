@@ -5,6 +5,7 @@ import com.kaiyujin.sb.domain.shop.ShopService;
 import com.kaiyujin.sb.exception.HTTPNotFoundException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/client/shops")
+@RequiredArgsConstructor
 public class ShopController {
 
-    @Autowired
-    ShopService shopService;
+    private final ShopService shopService;
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", dataType = "string", paramType = "query",

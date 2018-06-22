@@ -1,8 +1,8 @@
 package com.kaiyujin.sb.domain.shop;
 
 import com.kaiyujin.sb.controller.client.ShopDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ShopService {
 
-    @Autowired
-    ShopRepository shopRepository;
+    private final ShopRepository shopRepository;
 
     public Page<Shop> findShops(Pageable pageable) {
         return shopRepository.findAll(pageable);

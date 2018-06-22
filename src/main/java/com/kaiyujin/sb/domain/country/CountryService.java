@@ -1,6 +1,6 @@
 package com.kaiyujin.sb.domain.country;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +9,10 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CountryService {
 
-    @Autowired
-    CountryRepository countryRepository;
+    private final CountryRepository countryRepository;
 
     @Cacheable(cacheNames = "countries")
     public List<Country> findAll() {
