@@ -13,7 +13,7 @@ import java.util.Arrays;
 @Slf4j
 public class AspectLog {
 
-    @Before("within(com.kaiyujin.sb.controller.*)")
+    @Before("execution(* com.kaiyujin.sb.controller..*.*(..))")
     public void before(JoinPoint joinPoint) {
         log.info(joinPoint.getTarget().getClass() + "." +
                 joinPoint.getSignature().getName() + " " +
