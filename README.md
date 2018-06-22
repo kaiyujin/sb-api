@@ -19,3 +19,6 @@ or
 <http://localhost:8080/swagger-ui.html>
 
 docker-compose -f docker-compose-and-app.yml up --build
+
+## if database error
+`gradle flywayClean`
