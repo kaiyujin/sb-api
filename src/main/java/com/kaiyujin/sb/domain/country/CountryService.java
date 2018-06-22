@@ -1,6 +1,5 @@
 package com.kaiyujin.sb.domain.country;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +8,13 @@ import java.util.List;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class CountryService {
 
     private final CountryRepository countryRepository;
+
+    public CountryService(CountryRepository countryRepository) {
+        this.countryRepository = countryRepository;
+    }
 
     @Cacheable(cacheNames = "countries")
     public List<Country> findAll() {

@@ -1,7 +1,6 @@
 package com.kaiyujin.sb.domain.shop;
 
 import com.kaiyujin.sb.controller.client.ShopDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +12,13 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class ShopService {
 
     private final ShopRepository shopRepository;
+
+    public ShopService(ShopRepository shopRepository) {
+        this.shopRepository = shopRepository;
+    }
 
     public Page<Shop> findShops(Pageable pageable) {
         return shopRepository.findAll(pageable);
