@@ -1,23 +1,24 @@
 -- ユーザ
 insert into users (password, name, email, is_admin, created_by, created_at, updated_by, updated_at) values
-  ('test', 'admin', 'test@test.com', true, 1, now(), 1, now())
+   ('test', 'admin', 'test@test.com', true, 1, now(), 1, now())
+  ,('test', 'customer', 'customer@test.com', true, 1, now(), 1, now())
 ;
 -- 国マスタ
 insert into countries(code, name, itu_code, display_order) values
-  ('JPN', 'Japan','81', 1),
-  ('VNM', 'Vietnam','84', 2),
-  ('USA', 'USA', '1', 3)
+   ('JPN', 'Japan','81', 1)
+  ,('VNM', 'Vietnam','84', 2)
+  ,('USA', 'USA', '1', 3)
 ;
 -- 言語マスタ
 insert into languages(code, name, display_order) values
-  ('ja', 'Japanese',1),
-  ('en', 'English',2),
-  ('vi', 'Vietnamese',3)
+   ('ja', 'Japanese',1)
+  ,('en', 'English',2)
+  ,('vi', 'Vietnamese',3)
 ;
 -- タイムゾーンマスタ
 insert into timezones(code, name, interval_time, display_order) values
-  ('JST','Japan Standard Time', INTERVAL '9 hour',1),
-  ('ICT','Indochina Time', INTERVAL '7 hour',2)
+   ('JST','Japan Standard Time', INTERVAL '9 hour',1)
+  ,('ICT','Indochina Time', INTERVAL '7 hour',2)
 ;
 
 insert into companies ( name,country_code, address, building, phone_number, email, is_test, created_by, created_at, updated_by, updated_at) values
