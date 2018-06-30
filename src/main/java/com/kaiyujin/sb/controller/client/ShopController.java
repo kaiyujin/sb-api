@@ -41,10 +41,10 @@ public class ShopController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Shop getShop(@PathVariable("id") Long id, HttpServletResponse res) {
         var shop = shopService.findById(id);
-        if (!shop.isPresent()) {
+        if (shop == null) {
             throw new HTTPNotFoundException();
         }
-        return shop.get();
+        return shop;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)

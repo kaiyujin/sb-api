@@ -1,12 +1,27 @@
 package com.kaiyujin.sb.domain.shop;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.seasar.doma.Dao;
+import org.seasar.doma.Insert;
+import org.seasar.doma.Select;
+import org.seasar.doma.Update;
+import org.seasar.doma.boot.ConfigAutowireable;
+import org.seasar.doma.jdbc.SelectOptions;
 
-@Repository
-public interface ShopRepository extends JpaRepository<Shop, Long> {
-    @Override
-    Page<Shop> findAll(Pageable pageable);
+import java.util.List;
+
+@ConfigAutowireable
+@Dao
+public interface ShopRepository {
+
+    @Select
+    Shop findById(Long id);
+
+    @Select
+    List<Shop> findAll(SelectOptions options);
+
+    @Insert
+    int insert(Shop shop);
+
+    @Update
+    int update(Shop shop);
 }

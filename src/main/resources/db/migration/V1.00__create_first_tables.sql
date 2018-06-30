@@ -1,8 +1,16 @@
+-- auto update updated_at
+create function set_update_time() returns opaque as '
+  begin
+    new.updated_at := ''now'';
+    return new;
+  end;
+' language 'plpgsql';
+
 -- ユーザーマスタ
 CREATE TABLE users
 (
   -- ユーザーID
-  id bigserial NOT NULL UNIQUE,
+  id bigint generated always as identity NOT NULL UNIQUE,
   -- password
   password text NOT NULL,
   -- ユーザー名
@@ -14,13 +22,15 @@ CREATE TABLE users
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 更新したユーザーID
   updated_by bigint references users(id),
   -- 更新日時
-  updated_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+create trigger update_tri before update on users for each row
+  execute procedure set_update_time();
 
 -- 国マスタ
 CREATE TABLE countries
@@ -29,6 +39,7 @@ CREATE TABLE countries
   code char(3) NOT NULL UNIQUE,
   name text NOT NULL,
   itu_code varchar(2) NOT NULL,
+  display_order smallint NOT NULL,
   PRIMARY KEY (code)
 );
 
@@ -38,6 +49,7 @@ CREATE TABLE languages
   code varchar(5) NOT NULL,
   -- 言語名
   name text NOT NULL,
+  display_order smallint NOT NULL,
   PRIMARY KEY (code)
 );
 
@@ -50,6 +62,7 @@ CREATE TABLE timezones
   name text NOT NULL,
   -- UTC差
   interval_time interval NOT NULL,
+  display_order smallint NOT NULL,
   PRIMARY KEY (code)
 );
 
@@ -57,7 +70,7 @@ CREATE TABLE timezones
 CREATE TABLE companies
 (
   -- 会社ID
-  id bigserial NOT NULL UNIQUE,
+  id bigint generated always as identity NOT NULL UNIQUE,
   -- 会社名
   name text NOT NULL,
   -- 国ID
@@ -79,19 +92,21 @@ CREATE TABLE companies
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 更新したユーザーID
   updated_by bigint references users(id),
   -- 更新日時
-  updated_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+create trigger update_tri before update on companies for each row
+  execute procedure set_update_time();
 
 -- セクションマスタ
 CREATE TABLE sections
 (
   -- セクションID
-  id bigserial NOT NULL UNIQUE,
+  id bigint generated always as identity NOT NULL UNIQUE,
   -- セクション名
   name varchar(255) NOT NULL,
   -- 会社ID
@@ -99,19 +114,21 @@ CREATE TABLE sections
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 更新したユーザーID
   updated_by bigint references users(id),
   -- 更新日時
-  updated_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+create trigger update_tri before update on sections for each row
+  execute procedure set_update_time();
 
 -- 店舗マスタ
 CREATE TABLE shops
 (
   -- 店舗ID
-  id bigserial NOT NULL UNIQUE,
+  id bigint generated always as identity NOT NULL UNIQUE,
   -- 店名
   name varchar(255) NOT NULL,
   -- セクションID
@@ -143,19 +160,21 @@ CREATE TABLE shops
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 更新したユーザーID
   updated_by bigint references users(id),
   -- 更新日時
-  updated_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+create trigger update_tri before update on shops for each row
+  execute procedure set_update_time();
 
 -- 店舗スタッフID
 CREATE TABLE shop_staffs
 (
   -- 店舗スタッフID
-  id bigserial NOT NULL UNIQUE,
+  id bigint generated always as identity NOT NULL UNIQUE,
   -- 店舗ID
   shop_id bigint NOT NULL references shops(id),
   -- スタッフ名
@@ -169,19 +188,21 @@ CREATE TABLE shop_staffs
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 更新したユーザーID
   updated_by bigint references users(id),
   -- 更新日時
-  updated_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+create trigger update_tri before update on shop_staffs for each row
+  execute procedure set_update_time();
 
 -- 予約
 CREATE TABLE reservations
 (
   -- 予約ID
-  id bigserial NOT NULL UNIQUE,
+  id bigint generated always as identity NOT NULL UNIQUE,
   -- org
   -- section
   -- 店舗ID
@@ -191,7 +212,7 @@ CREATE TABLE reservations
   -- 予約ステータスID
   status_id smallint NOT NULL,
   -- 予約日時
-  date timestamp with time zone NOT NULL,
+  date timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 滞在時間
   stay_time interval NOT NULL,
   -- 全利用人数(大人 + 子供)
@@ -207,13 +228,15 @@ CREATE TABLE reservations
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 更新したユーザーID
   updated_by bigint references users(id),
   -- 更新日時
-  updated_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+create trigger update_tri before update on reservations for each row
+  execute procedure set_update_time();
 
 -- 予約個人情報
 CREATE TABLE reservation_personal_data
@@ -229,20 +252,21 @@ CREATE TABLE reservation_personal_data
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 更新したユーザーID
   updated_by bigint references users(id),
   -- 更新日時
-  updated_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (reservation_id)
 );
-
+create trigger update_tri before update on reservation_personal_data for each row
+  execute procedure set_update_time();
 
 -- テーブルマスタ
 CREATE TABLE tables
 (
   -- テーブルID
-  id bigserial NOT NULL UNIQUE,
+  id bigint generated always as identity NOT NULL UNIQUE,
   -- 店舗ID
   shop_id bigint NOT NULL references shops(id),
   -- テーブル名
@@ -258,13 +282,15 @@ CREATE TABLE tables
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   -- 更新したユーザーID
   updated_by bigint references users(id),
   -- 更新日時
-  updated_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+create trigger update_tri before update on tables for each row
+  execute procedure set_update_time();
 
 -- 予約-テーブル交差テーブル
 CREATE TABLE reservations_tables
@@ -276,7 +302,7 @@ CREATE TABLE reservations_tables
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (reservation_id, table_id)
 );
 
@@ -300,6 +326,6 @@ CREATE TABLE tables_sheet_types
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
-  created_at timestamp with time zone NOT NULL,
+  created_at timestamp with time zone NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY (table_id,table_type_id)
 );

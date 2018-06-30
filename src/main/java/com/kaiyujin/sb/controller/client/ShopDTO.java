@@ -29,4 +29,7 @@ public class ShopDTO {
     @Length(max = 3)
     private String timezoneCode;
 
+    private Long sectionId;
+
+    private Integer displayOrder;
 }

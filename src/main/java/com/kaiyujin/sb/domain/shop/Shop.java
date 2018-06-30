@@ -1,35 +1,35 @@
 package com.kaiyujin.sb.domain.shop;
 
-import com.kaiyujin.sb.entity.BaseEntity;
 import lombok.Data;
+import org.seasar.doma.*;
+import org.seasar.doma.jdbc.entity.NamingType;
 
-import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Data
-@Entity
+@Entity(naming = NamingType.SNAKE_LOWER_CASE)
 @Table(name = "shops")
-public class Shop extends BaseEntity {
+public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     @Size(max = 255)
     private String name;
 
-    @Column(nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    private Long sectionId;
+
     private String countryCode;
 
-    @Column(nullable = false)
     private String timezoneCode;
 
-    @Column(nullable = false)
     private Integer displayOrder;
+
+    private Integer createdBy;
+
+    private Integer updatedBy;
 }

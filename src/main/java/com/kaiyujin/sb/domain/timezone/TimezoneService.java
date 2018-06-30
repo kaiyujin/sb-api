@@ -18,7 +18,7 @@ public class TimezoneService {
 
     @Cacheable(cacheNames = "timezones")
     public List<Timezone> findAll() {
-        return timezoneRepository.findAllByOrderByCode();
+        return timezoneRepository.findAll();
     }
 
 }

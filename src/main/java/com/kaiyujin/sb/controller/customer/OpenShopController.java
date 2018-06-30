@@ -21,9 +21,6 @@ public class OpenShopController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Shop getShop(@PathVariable("id") Long id, HttpServletResponse res) {
         var shop = shopService.findById(id);
-        if (!shop.isPresent()) {
-            throw new HTTPNotFoundException();
-        }
-        return shop.get();
+        return shop;
     }
 }

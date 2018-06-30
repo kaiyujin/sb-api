@@ -18,7 +18,7 @@ public class CountryService {
 
     @Cacheable(cacheNames = "countries")
     public List<Country> findAll() {
-        return countryRepository.findAllByOrderByCode();
+        return countryRepository.findAll();
     }
 
 }

@@ -1,14 +1,15 @@
 package com.kaiyujin.sb.domain.country;
 
 import lombok.Data;
+import org.seasar.doma.Entity;
+import org.seasar.doma.Id;
+import org.seasar.doma.Table;
+import org.seasar.doma.jdbc.entity.NamingType;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
-@Entity
+@Entity(naming = NamingType.SNAKE_LOWER_CASE)
 @Table(name = "countries")
 public class Country implements Serializable {
     private static final long serialVersionUID = 1L;

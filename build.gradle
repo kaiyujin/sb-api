@@ -18,6 +18,9 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.flywaydb.flyway'
 
+processResources.destinationDir = compileJava.destinationDir
+compileJava.dependsOn processResources
+
 group = 'com.kaiyujin'
 sourceCompatibility = 10
 
@@ -53,6 +56,7 @@ dependencies {
     compile('org.springframework.retry:spring-retry')
     compile('org.springframework.data:spring-data-jpa')
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    compile('org.seasar.doma.boot:doma-spring-boot-starter:1.1.1')
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('org.postgresql:postgresql')
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')

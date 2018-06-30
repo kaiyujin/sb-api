@@ -21,4 +21,4 @@ or
 docker-compose -f docker-compose-and-app.yml up --build
 
 ## if database error
-`gradle flywayClean`
+`./gradlew flywayClean`
