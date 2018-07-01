@@ -6,9 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-/**
- * Userエンティティ
- */
 public class SimpleUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -20,7 +17,6 @@ public class SimpleUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String name) {
-        // emailでデータベースからユーザーエンティティを検索する
         return userRepository.findByName(name)
                 .map(SimpleLoginUser::new)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
