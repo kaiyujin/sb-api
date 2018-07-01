@@ -16,7 +16,6 @@ public class TimezoneService {
         this.timezoneRepository = timezoneRepository;
     }
 
-    @Cacheable(cacheNames = "timezones")
     public List<Timezone> findAll() {
         return timezoneRepository.findAll();
     }
