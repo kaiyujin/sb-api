@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // AUTHORIZE
                 .authorizeRequests()
-                .mvcMatchers("/api/master/**")
+                .mvcMatchers("/api/master/**","/api/customers/**")
                 .permitAll()
                 .mvcMatchers("/api/client/**")
                 .hasRole("USER")
@@ -59,17 +59,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authenticationSuccessHandler())
                 .failureHandler(authenticationFailureHandler())
                 .and()
-                // ★2 LOGOUT
+                // LOGOUT
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .and()
-                // ★3 CSRF
+                // CSRF
                 .csrf()
                 .disable()
-                // ★4 AUTHORIZE
+                // AUTHORIZE
                 .addFilterBefore(tokenFilter(), UsernamePasswordAuthenticationFilter.class)
-                // ★5 SESSION
+                // SESSION
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         ;

@@ -22,7 +22,7 @@ public class SimpleAuthenticationFailureHandler implements AuthenticationFailure
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+                                        AuthenticationException exception) throws IOException {
         if (response.isCommitted()) {
             log.info("Response has already been committed.");
             return;

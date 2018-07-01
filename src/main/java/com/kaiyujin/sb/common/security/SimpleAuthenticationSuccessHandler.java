@@ -70,7 +70,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
      */
     private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session == null) {
+        if (Objects.isNull(session)) {
             return;
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);

@@ -36,7 +36,7 @@ public class SimpleTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         String token = resolveToken(request);
-        if (token == null) {
+        if (Objects.isNull(token)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -53,7 +53,7 @@ public class SimpleTokenFilter extends GenericFilterBean {
 
     private String resolveToken(ServletRequest request) {
         String token = ((HttpServletRequest) request).getHeader("Authorization");
-        if (token == null || !token.startsWith("Bearer ")) {
+        if (Objects.isNull(token) || !token.startsWith("Bearer ")) {
             return null;
         }
         return token.substring(7);

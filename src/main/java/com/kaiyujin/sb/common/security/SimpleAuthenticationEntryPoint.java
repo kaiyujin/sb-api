@@ -28,7 +28,7 @@ public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint 
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
-                         AuthenticationException exception) throws IOException, ServletException {
+                         AuthenticationException exception) throws IOException {
         if (response.isCommitted()) {
             log.info("Response has already been committed.");
             return;

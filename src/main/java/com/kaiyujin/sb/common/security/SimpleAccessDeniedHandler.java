@@ -24,7 +24,7 @@ public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
-                       AccessDeniedException exception) throws IOException, ServletException {
+                       AccessDeniedException exception) throws IOException {
         if (response.isCommitted()) {
             log.info("Response has already been committed.");
             return;
