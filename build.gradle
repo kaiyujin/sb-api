@@ -43,7 +43,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-cache')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-mail')
-    //compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-validation')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-webflux')
@@ -56,6 +56,7 @@ dependencies {
     compile('org.springframework.retry:spring-retry')
     compile('org.springframework.data:spring-data-jpa')
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    compile group: 'com.auth0', name: 'java-jwt', version: '3.4.0'
     compile('org.seasar.doma.boot:doma-spring-boot-starter:1.1.1')
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('org.postgresql:postgresql')

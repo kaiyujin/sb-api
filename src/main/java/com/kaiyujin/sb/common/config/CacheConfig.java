@@ -1,4 +1,4 @@
-package com.kaiyujin.sb.config;
+package com.kaiyujin.sb.common.config;
 
 import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CachingConfigurerSupport;

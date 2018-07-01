@@ -18,6 +18,7 @@ spring:
     show-sql: true
   flyway:
     enabled: true
+
 doma:
   dialect: postgres
   query-timeout: 60

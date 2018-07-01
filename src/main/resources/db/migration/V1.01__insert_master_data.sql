@@ -1,7 +1,7 @@
 -- ユーザ
-insert into users (password, name, email, is_admin, created_by, created_at, updated_by, updated_at) values
-   ('test', 'admin', 'test@test.com', true, 1, now(), 1, now())
-  ,('test', 'customer', 'customer@test.com', true, 1, now(), 1, now())
+insert into users (password, name, email, role_type, created_by, created_at, updated_by, updated_at) values
+   ('$2a$08$IzBdL5stGhyzLyZwKe6Dquvs61juEWgH2v2hHhnxzRqYrtZ3nRqXa', 'admin', 'test@test.com', 1, 1, now(), 1, now()) -- pass=test
+  ,('$2a$08$IzBdL5stGhyzLyZwKe6Dquvs61juEWgH2v2hHhnxzRqYrtZ3nRqXa', 'customer', 'customer@test.com', 3, 1, now(), 1, now()) -- pass=test
 ;
 -- 国マスタ
 insert into countries(code, name, itu_code, display_order) values

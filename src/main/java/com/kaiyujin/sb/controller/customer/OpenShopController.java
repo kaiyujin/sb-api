@@ -2,7 +2,6 @@ package com.kaiyujin.sb.controller.customer;
 
 import com.kaiyujin.sb.domain.shop.Shop;
 import com.kaiyujin.sb.domain.shop.ShopService;
-import com.kaiyujin.sb.exception.HTTPNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

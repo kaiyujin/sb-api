@@ -2,7 +2,7 @@ package com.kaiyujin.sb.controller.client;
 
 import com.kaiyujin.sb.domain.shop.Shop;
 import com.kaiyujin.sb.domain.shop.ShopService;
-import com.kaiyujin.sb.exception.HTTPNotFoundException;
+import com.kaiyujin.sb.common.exception.HTTPNotFoundException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.kaiyujin.sb.aop;
+package com.kaiyujin.sb.common.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

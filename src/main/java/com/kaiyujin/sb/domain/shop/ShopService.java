@@ -1,7 +1,7 @@
 package com.kaiyujin.sb.domain.shop;
 
 import com.kaiyujin.sb.controller.client.ShopDTO;
-import com.kaiyujin.sb.exception.HTTPNotFoundException;
+import com.kaiyujin.sb.common.exception.HTTPNotFoundException;
 import org.seasar.doma.jdbc.SelectOptions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

@@ -17,8 +17,8 @@ CREATE TABLE users
   name varchar(255) NOT NULL,
   -- e-mail アドレス
   email varchar(255) NOT NULL,
-  -- is admin
-  is_admin boolean NOT NULL,
+  -- role type 1:admin 2:support 3:user
+  role_type smallint NOT NULL,
   -- 作成したユーザーID
   created_by bigint NOT NULL references users(id),
   -- 作成日時
