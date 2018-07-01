@@ -2,7 +2,6 @@ package com.kaiyujin.sb.controller.client;
 
 import com.kaiyujin.sb.domain.shop.Shop;
 import com.kaiyujin.sb.domain.shop.ShopService;
-import com.kaiyujin.sb.common.exception.HTTPNotFoundException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.data.domain.Page;
@@ -41,9 +40,6 @@ public class ShopController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Shop getShop(@PathVariable("id") Long id, HttpServletResponse res) {
         var shop = shopService.findById(id);
-        if (shop == null) {
-            throw new HTTPNotFoundException();
-        }
         return shop;
     }
 

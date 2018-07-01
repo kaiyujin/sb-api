@@ -8,13 +8,14 @@ import org.seasar.doma.boot.ConfigAutowireable;
 import org.seasar.doma.jdbc.SelectOptions;
 
 import java.util.List;
+import java.util.Optional;
 
 @ConfigAutowireable
 @Dao
 public interface ShopRepository {
 
     @Select
-    Shop findById(Long id);
+    Optional<Shop> findById(Long id);
 
     @Select
     List<Shop> findAll(SelectOptions options);

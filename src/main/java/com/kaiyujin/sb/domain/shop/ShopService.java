@@ -10,8 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,14 +23,16 @@ public class ShopService {
     }
 
     public Page<Shop> findShops(Pageable pageable) {
-        SelectOptions options = SelectOptions.get().offset(0).limit(100).count();
-        List<Shop> shops = shopRepository.findAll(options);
-        Page<Shop> page = new PageImpl<Shop>(shops, pageable, options.getCount());
+        var options = SelectOptions.get().offset(0).limit(100).count();
+        var shops = shopRepository.findAll(options);
+        var page = new PageImpl<Shop>(shops, pageable, options.getCount());
         return page;
     }
 
     public Shop findById(Long id) {
-        return shopRepository.findById(id);
+        var shop = shopRepository.findById(id);
+        if(!shop.isPresent()) { throw new HTTPNotFoundException(); }
+        return shop.get();
     }
 
     public Shop save(ShopDTO shopDTO) {
@@ -43,9 +44,6 @@ public class ShopService {
 
     public Shop save(Long id, ShopDTO shopDTO) {
         var shop = findById(id);
-        if(Objects.isNull(shop)) {
-            throw new HTTPNotFoundException();
-        }
         shop.setName(shopDTO.getName());
         shop.setEmail(shopDTO.getEmail());
         shop.setPhoneNumber(shopDTO.getPhoneNumber());
