@@ -37,7 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // AUTHORIZE
                 .authorizeRequests()
-                .mvcMatchers("/api/master/**", "/api/customers/**")
+                .mvcMatchers("/api/master/**", "/api/customers/**",
+                        "/v2/api-docs", "/configuration/ui", "/swagger-resources",
+                        "/configuration/security", "/swagger-ui.html", "/webjars/**",
+                        "/swagger-resources/configuration/ui", "/swagge‌​r-ui.html",
+                        "/swagger-resources/configuration/security")
                 .permitAll()
                 .mvcMatchers("/api/client/**")
                 .hasRole("USER")
