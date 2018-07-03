@@ -1,6 +1,5 @@
 package com.kaiyujin.sb.domain.country;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

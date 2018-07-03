@@ -18,7 +18,7 @@ public class ShopController {
 
     private final ShopService shopService;
 
-    public ShopController (ShopService shopService) {
+    public ShopController(ShopService shopService) {
         this.shopService = shopService;
     }
 
@@ -43,13 +43,13 @@ public class ShopController {
         return shop;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Shop create(@RequestBody @Validated ShopDTO shopDTO) {
         return shopService.save(shopDTO);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public Shop update(@PathVariable Long id,@RequestBody @Validated ShopDTO shopDTO) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Shop update(@PathVariable Long id, @RequestBody @Validated ShopDTO shopDTO) {
         return shopService.save(id, shopDTO);
     }
 }

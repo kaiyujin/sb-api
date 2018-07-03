@@ -12,11 +12,12 @@ public class SimpleLoginUser extends org.springframework.security.core.userdetai
 
     private User user;
 
-    private static final Map<Integer,List<GrantedAuthority>> ROLE_MAP = new HashMap();
-    static{
-        ROLE_MAP.put(1,AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_SUPPORT", "ROLE_USER"));
-        ROLE_MAP.put(2,AuthorityUtils.createAuthorityList("ROLE_SUPPORT", "ROLE_USER"));
-        ROLE_MAP.put(3,AuthorityUtils.createAuthorityList("ROLE_USER"));
+    private static final Map<Integer, List<GrantedAuthority>> ROLE_MAP = new HashMap();
+
+    static {
+        ROLE_MAP.put(1, AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_SUPPORT", "ROLE_USER"));
+        ROLE_MAP.put(2, AuthorityUtils.createAuthorityList("ROLE_SUPPORT", "ROLE_USER"));
+        ROLE_MAP.put(3, AuthorityUtils.createAuthorityList("ROLE_USER"));
     }
 
     public User getUser() {

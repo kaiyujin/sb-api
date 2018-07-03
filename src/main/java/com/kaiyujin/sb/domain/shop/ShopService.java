@@ -1,7 +1,7 @@
 package com.kaiyujin.sb.domain.shop;
 
-import com.kaiyujin.sb.controller.client.ShopDTO;
 import com.kaiyujin.sb.common.exception.HTTPNotFoundException;
+import com.kaiyujin.sb.controller.client.ShopDTO;
 import org.seasar.doma.jdbc.SelectOptions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,7 +30,9 @@ public class ShopService {
 
     public Shop findById(Long id) {
         var shop = shopRepository.findById(id);
-        if(!shop.isPresent()) { throw new HTTPNotFoundException(); }
+        if (!shop.isPresent()) {
+            throw new HTTPNotFoundException();
+        }
         return shop.get();
     }
 
