@@ -57,17 +57,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // LOGIN
                 .formLogin()
-                .loginProcessingUrl("/login").permitAll()
+                .loginProcessingUrl("/api/auth/login").permitAll()
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .successHandler(authenticationSuccessHandler())
                 .failureHandler(authenticationFailureHandler())
                 .and()
                 // LOGOUT
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessHandler(logoutSuccessHandler())
-                .and()
+                //.logout()
+                //.logoutUrl("/logout")
+                //.logoutSuccessHandler(logoutSuccessHandler())
+                //.and()
                 // CSRF
                 .csrf()
                 .disable()
