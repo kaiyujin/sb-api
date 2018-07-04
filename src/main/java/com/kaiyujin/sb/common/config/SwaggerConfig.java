@@ -1,6 +1,7 @@
 package com.kaiyujin.sb.common.config;
 
 import com.google.common.base.Predicate;
+import com.kaiyujin.sb.common.security.SimpleLoginUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -23,6 +24,7 @@ public class SwaggerConfig {
     @Bean
     public Docket swaggerSpringMvcPlugin() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .ignoredParameterTypes(SimpleLoginUser.class)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(paths())
