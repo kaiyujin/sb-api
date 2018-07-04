@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.CLIENT_API_BASE_URL+"/cache")
+@RequestMapping(Constants.CLIENT_API_BASE_URL+"/caches")
 public class CacheController {
 
     @RequestMapping(value = "", method = RequestMethod.DELETE)
