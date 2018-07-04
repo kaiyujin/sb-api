@@ -6,7 +6,6 @@ import com.kaiyujin.sb.domain.shop.Shop;
 import com.kaiyujin.sb.domain.shop.ShopService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.Authorization;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -14,10 +13,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
 
 @RestController
-@RequestMapping(Constants.CLIENT_API_BASE_URL+"/shops")
+@RequestMapping(Constants.CLIENT_API_BASE_URL + "/shops")
 public class ShopController {
 
     private final ShopService shopService;

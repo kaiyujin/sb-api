@@ -19,8 +19,6 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.filter.GenericFilterBean;
 
 @EnableWebSecurity
@@ -38,15 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // AUTHORIZE
                 .authorizeRequests()
-                .mvcMatchers(Constants.CUSTEMER_API_BASE_URL+"/**",
+                .mvcMatchers(Constants.CUSTEMER_API_BASE_URL + "/**",
                         "/v2/api-docs", "/configuration/ui", "/swagger-resources",
                         "/configuration/security", "/swagger-ui.html", "/webjars/**",
                         "/swagger-resources/configuration/ui", "/swagge‌​r-ui.html",
                         "/swagger-resources/configuration/security", "/actuator/health")
                 .permitAll()
-                .mvcMatchers(Constants.CLIENT_API_BASE_URL+"/**")
+                .mvcMatchers(Constants.CLIENT_API_BASE_URL + "/**")
                 .hasRole("USER")
-                .mvcMatchers(Constants.ADMIN_API_BASE_URL+"/**")
+                .mvcMatchers(Constants.ADMIN_API_BASE_URL + "/**")
                 .hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
