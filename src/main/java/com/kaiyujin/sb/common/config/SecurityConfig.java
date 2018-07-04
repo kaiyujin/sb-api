@@ -1,5 +1,6 @@
 package com.kaiyujin.sb.common.config;
 
+import com.kaiyujin.sb.common.Constants;
 import com.kaiyujin.sb.common.security.*;
 import com.kaiyujin.sb.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // AUTHORIZE
                 .authorizeRequests()
-                .mvcMatchers("/api/master/**", "/api/customers/**",
+                .mvcMatchers(Constants.CUSTEMER_API_BASE_URL+"/**",
                         "/v2/api-docs", "/configuration/ui", "/swagger-resources",
                         "/configuration/security", "/swagger-ui.html", "/webjars/**",
                         "/swagger-resources/configuration/ui", "/swagge‌​r-ui.html",
                         "/swagger-resources/configuration/security", "/actuator/health")
                 .permitAll()
-                .mvcMatchers("/api/client/**")
+                .mvcMatchers(Constants.CLIENT_API_BASE_URL+"/**")
                 .hasRole("USER")
-                .mvcMatchers("/api/admin/**")
+                .mvcMatchers(Constants.ADMIN_API_BASE_URL+"/**")
                 .hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -63,11 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authenticationSuccessHandler())
                 .failureHandler(authenticationFailureHandler())
                 .and()
-                // LOGOUT
-                //.logout()
-                //.logoutUrl("/logout")
-                //.logoutSuccessHandler(logoutSuccessHandler())
-                //.and()
                 // CSRF
                 .csrf()
                 .disable()
@@ -115,10 +111,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     AuthenticationFailureHandler authenticationFailureHandler() {
         return new SimpleAuthenticationFailureHandler();
-    }
-
-    LogoutSuccessHandler logoutSuccessHandler() {
-        return new HttpStatusReturningLogoutSuccessHandler();
     }
 
 }

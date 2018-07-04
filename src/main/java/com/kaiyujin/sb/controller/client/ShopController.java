@@ -1,5 +1,6 @@
 package com.kaiyujin.sb.controller.client;
 
+import com.kaiyujin.sb.common.Constants;
 import com.kaiyujin.sb.domain.shop.Shop;
 import com.kaiyujin.sb.domain.shop.ShopService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/api/client/shops")
+@RequestMapping(Constants.CLIENT_API_BASE_URL+"/shops")
 public class ShopController {
 
     private final ShopService shopService;
