@@ -26,23 +26,27 @@ public class SimpleTokenFilter extends GenericFilterBean {
 
     final private UserRepository userRepository;
     final private Algorithm algorithm;
+    final private SimpleAuthenticationSuccessHandler handler;
 
     public SimpleTokenFilter(UserRepository userRepository, String secretKey) {
         Objects.requireNonNull(secretKey, "secret key must be not null");
         this.userRepository = userRepository;
         this.algorithm = Algorithm.HMAC256(secretKey);
+        this.handler = new SimpleAuthenticationSuccessHandler(secretKey);
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         String token = resolveToken(request);
+
         if (Objects.isNull(token)) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            authentication(verifyToken(token));
+            var userId = authentication(verifyToken(token));
+            handler.setToken((HttpServletResponse) response, handler.generateToken(userId));
         } catch (JWTVerificationException e) {
             log.error("verify token error", e);
             SecurityContextHolder.clearContext();
@@ -64,13 +68,14 @@ public class SimpleTokenFilter extends GenericFilterBean {
         return verifier.verify(token);
     }
 
-    private void authentication(DecodedJWT jwt) {
+    private Long authentication(DecodedJWT jwt) {
         Long userId = Long.valueOf(jwt.getSubject());
         userRepository.findById(userId).ifPresent(user -> {
             SimpleLoginUser simpleLoginUser = new SimpleLoginUser(user);
             SecurityContextHolder.getContext().setAuthentication(
                     new UsernamePasswordAuthenticationToken(simpleLoginUser, null, simpleLoginUser.getAuthorities()));
         });
+        return userId;
     }
 
 }

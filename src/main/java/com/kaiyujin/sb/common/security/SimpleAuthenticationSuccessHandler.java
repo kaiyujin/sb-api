@@ -46,6 +46,10 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 
     private String generateToken(Authentication auth) {
         SimpleLoginUser loginUser = (SimpleLoginUser) auth.getPrincipal();
+        return generateToken(loginUser.getUser().getId());
+    }
+
+    String generateToken(Long userId) {
         Date issuedAt = new Date();
         Date notBefore = new Date(issuedAt.getTime());
         Date expiresAt = new Date(issuedAt.getTime() + EXPIRATION_TIME);
@@ -53,13 +57,13 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
                 .withIssuedAt(issuedAt)
                 .withNotBefore(notBefore)
                 .withExpiresAt(expiresAt)
-                .withSubject(loginUser.getUser().getId().toString())
+                .withSubject(Objects.toString(userId))
                 .sign(this.algorithm);
         log.debug("generate token : {}", token);
         return token;
     }
 
-    private void setToken(HttpServletResponse response, String token) {
+    void setToken(HttpServletResponse response, String token) {
         response.setHeader("Authorization", String.format("Bearer %s", token));
     }
 
