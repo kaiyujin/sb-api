@@ -18,7 +18,7 @@ or
 
 ## login
 ```
-curl -i -X POST localhost:8080/api/auth/login -d 'username=admin' -d 'password=test'
+curl -i -X POST localhost:8080/api/auth/login -d 'username=admin' -d 'password=test' | grep -o Bearer.*
 ```
 ## specification
 <http://localhost:8080/swagger-ui.html>
