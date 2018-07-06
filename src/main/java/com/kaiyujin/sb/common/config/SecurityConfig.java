@@ -92,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     GenericFilterBean tokenFilter() {
-        return new SimpleTokenFilter(userRepository, secretKey);
+        return new SimpleTokenFilter(userRepository);
     }
 
     AuthenticationEntryPoint authenticationEntryPoint() {
@@ -104,7 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new SimpleAuthenticationSuccessHandler(secretKey);
+        return new SimpleAuthenticationSuccessHandler();
     }
 
     AuthenticationFailureHandler authenticationFailureHandler() {

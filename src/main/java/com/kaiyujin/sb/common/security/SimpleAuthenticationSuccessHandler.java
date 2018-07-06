@@ -3,6 +3,7 @@ package com.kaiyujin.sb.common.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
@@ -24,12 +25,14 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 
     final private Algorithm algorithm;
 
-    public SimpleAuthenticationSuccessHandler(String secretKey) {
-        Objects.requireNonNull(secretKey, "secret key must be not null");
+    @Value("${app.security.secret-key}")
+    private String secretKey = "secret";
+
+    public SimpleAuthenticationSuccessHandler() {
         this.algorithm = Algorithm.HMAC256(secretKey);
     }
 
-    private static final Long EXPIRATION_TIME = 1000L * 60L * 10L;
+    private static final Long EXPIRATION_TIME = 1000L * 60L * 30L;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -49,7 +52,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         return generateToken(loginUser.getUser().getId());
     }
 
-    String generateToken(Long userId) {
+    public String generateToken(Long userId) {
         Date issuedAt = new Date();
         Date notBefore = new Date(issuedAt.getTime());
         Date expiresAt = new Date(issuedAt.getTime() + EXPIRATION_TIME);
@@ -63,7 +66,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         return token;
     }
 
-    void setToken(HttpServletResponse response, String token) {
+    public void setToken(HttpServletResponse response, String token) {
         response.setHeader("Authorization", String.format("Bearer %s", token));
     }
 

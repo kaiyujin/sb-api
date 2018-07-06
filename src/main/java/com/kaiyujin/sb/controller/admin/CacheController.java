@@ -13,6 +13,6 @@ public class CacheController {
     @RequestMapping(value = "", method = RequestMethod.DELETE)
     @CacheEvict(cacheNames = {"countries", "user", "timezones"}, allEntries = true)
     public String clear() {
-        return "{ \"status\": \"OK\" }";
+        return Constants.MESSAGE_OK;
     }
 }

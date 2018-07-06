@@ -24,3 +24,6 @@ spring:
 doma:
   dialect: postgres
   query-timeout: 60
+
+settings:
+    secretKey: sample
