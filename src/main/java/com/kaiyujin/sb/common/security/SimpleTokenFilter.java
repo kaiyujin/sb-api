@@ -7,7 +7,6 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.kaiyujin.sb.domain.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,10 +26,8 @@ public class SimpleTokenFilter extends GenericFilterBean {
 
     final private UserRepository userRepository;
     final private Algorithm algorithm;
-    @Value("${app.security.secretKey}")
-    private String secretKey = "secret";
 
-    public SimpleTokenFilter(UserRepository userRepository) {
+    public SimpleTokenFilter(UserRepository userRepository, String secretKey) {
         this.userRepository = userRepository;
         this.algorithm = Algorithm.HMAC256(secretKey);
     }

@@ -1,10 +1,10 @@
 package com.kaiyujin.sb.common.config;
 
+import com.kaiyujin.sb.common.ApplicationSettings;
 import com.kaiyujin.sb.common.Constants;
 import com.kaiyujin.sb.common.security.*;
 import com.kaiyujin.sb.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,8 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserRepository userRepository;
 
-    @Value("${security.secret-key:secret}")
-    private String secretKey = "secret";
+    @Autowired
+    private ApplicationSettings settings;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -92,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     GenericFilterBean tokenFilter() {
-        return new SimpleTokenFilter(userRepository);
+        return new SimpleTokenFilter(userRepository, settings.getSecretKey());
     }
 
     AuthenticationEntryPoint authenticationEntryPoint() {
@@ -104,7 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new SimpleAuthenticationSuccessHandler();
+        return new SimpleAuthenticationSuccessHandler(settings.getSecretKey());
     }
 
     AuthenticationFailureHandler authenticationFailureHandler() {

@@ -25,10 +25,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 
     final private Algorithm algorithm;
 
-    @Value("${app.security.secret-key}")
-    private String secretKey = "secret";
-
-    public SimpleAuthenticationSuccessHandler() {
+    public SimpleAuthenticationSuccessHandler(String secretKey) {
         this.algorithm = Algorithm.HMAC256(secretKey);
     }
 
@@ -62,7 +59,9 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
                 .withExpiresAt(expiresAt)
                 .withSubject(Objects.toString(userId))
                 .sign(this.algorithm);
-        log.debug("generate token : {}", token);
+        if( log.isDebugEnabled() ) {
+            log.debug("generate token : {}", token);
+        }
         return token;
     }
 
