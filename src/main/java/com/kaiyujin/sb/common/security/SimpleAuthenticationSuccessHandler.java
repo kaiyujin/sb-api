@@ -25,7 +25,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 
     final private Algorithm algorithm;
 
-    final private static String AUTH_BEARER = "{\"Authorization\": \"Bearer %s\"}\n";
+    final private static String AUTH_BEARER = "{\"token\": \"Bearer %s\"}\n";
 
     public SimpleAuthenticationSuccessHandler(String secretKey) {
         this.algorithm = Algorithm.HMAC256(secretKey);
@@ -36,7 +36,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        Authentication auth)  {
+                                        Authentication auth) throws IOException {
         if (response.isCommitted()) {
             log.info("Response has already been committed.");
             return;
@@ -67,14 +67,10 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         return token;
     }
 
-    public void setToken(HttpServletResponse response, String token) {
-        try {
-            response.getWriter().append(
-                    String.format(AUTH_BEARER,token
-            )).flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void setToken(HttpServletResponse response, String token) throws IOException {
+        response.getWriter().append(
+                String.format(AUTH_BEARER,token
+        )).flush();
     }
 
     public String getTokenJson(HttpServletResponse response, String token) {
@@ -87,10 +83,9 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
      */
     private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (Objects.isNull(session)) {
-            return;
+        if (Objects.nonNull(session)) {
+            session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         }
-        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 
 }
