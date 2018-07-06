@@ -25,6 +25,8 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 
     final private Algorithm algorithm;
 
+    final private static String AUTH_BEARER = "{\"Authorization\": \"Bearer %s\"}\n";
+
     public SimpleAuthenticationSuccessHandler(String secretKey) {
         this.algorithm = Algorithm.HMAC256(secretKey);
     }
@@ -66,7 +68,17 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
     }
 
     public void setToken(HttpServletResponse response, String token) {
-        response.setHeader("Authorization", String.format("Bearer %s", token));
+        try {
+            response.getWriter().append(
+                    String.format(AUTH_BEARER,token
+            )).flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getTokenJson(HttpServletResponse response, String token) {
+        return String.format(AUTH_BEARER,token);
     }
 
     /**

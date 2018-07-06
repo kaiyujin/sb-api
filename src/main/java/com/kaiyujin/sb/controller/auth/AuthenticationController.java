@@ -22,7 +22,6 @@ public class AuthenticationController {
     @RequestMapping(value = "refreshToken", method = RequestMethod.GET)
     public String refreshToken(HttpServletResponse res, @ModelAttribute SimpleLoginUser simpleLoginUser) {
         var handler = new SimpleAuthenticationSuccessHandler(settings.getSecretKey());
-        handler.setToken(res, handler.generateToken(simpleLoginUser.getUser().getId()));
-        return Constants.MESSAGE_OK;
+        return handler.getTokenJson(res, handler.generateToken(simpleLoginUser.getUser().getId()));
     }
 }
