@@ -18,6 +18,8 @@ spring:
     show-sql: true
   flyway:
     enabled: true
+  profiles:
+    active: local
 
 doma:
   dialect: postgres
