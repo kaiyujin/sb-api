@@ -3,6 +3,7 @@ package com.kaiyujin.sb.common.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
@@ -24,17 +25,18 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 
     final private Algorithm algorithm;
 
+    final private static String AUTH_BEARER = "{\"token\": \"Bearer %s\"}\n";
+
     public SimpleAuthenticationSuccessHandler(String secretKey) {
-        Objects.requireNonNull(secretKey, "secret key must be not null");
         this.algorithm = Algorithm.HMAC256(secretKey);
     }
 
-    private static final Long EXPIRATION_TIME = 1000L * 60L * 10L;
+    private static final Long EXPIRATION_TIME = 1000L * 60L * 30L;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        Authentication auth) throws IOException, ServletException {
+                                        Authentication auth) throws IOException {
         if (response.isCommitted()) {
             log.info("Response has already been committed.");
             return;
@@ -46,6 +48,10 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 
     private String generateToken(Authentication auth) {
         SimpleLoginUser loginUser = (SimpleLoginUser) auth.getPrincipal();
+        return generateToken(loginUser.getUser().getId());
+    }
+
+    public String generateToken(Long userId) {
         Date issuedAt = new Date();
         Date notBefore = new Date(issuedAt.getTime());
         Date expiresAt = new Date(issuedAt.getTime() + EXPIRATION_TIME);
@@ -53,14 +59,22 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
                 .withIssuedAt(issuedAt)
                 .withNotBefore(notBefore)
                 .withExpiresAt(expiresAt)
-                .withSubject(loginUser.getUser().getId().toString())
+                .withSubject(Objects.toString(userId))
                 .sign(this.algorithm);
-        log.debug("generate token : {}", token);
+        if( log.isDebugEnabled() ) {
+            log.debug("generate token : {}", token);
+        }
         return token;
     }
 
-    private void setToken(HttpServletResponse response, String token) {
-        response.setHeader("Authorization", String.format("Bearer %s", token));
+    public void setToken(HttpServletResponse response, String token) throws IOException {
+        response.getWriter().append(
+                String.format(AUTH_BEARER,token
+        )).flush();
+    }
+
+    public String getTokenJson(HttpServletResponse response, String token) {
+        return String.format(AUTH_BEARER,token);
     }
 
     /**
@@ -69,10 +83,9 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
      */
     private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (Objects.isNull(session)) {
-            return;
+        if (Objects.nonNull(session)) {
+            session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         }
-        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 
 }

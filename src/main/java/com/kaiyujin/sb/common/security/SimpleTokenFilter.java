@@ -28,7 +28,6 @@ public class SimpleTokenFilter extends GenericFilterBean {
     final private Algorithm algorithm;
 
     public SimpleTokenFilter(UserRepository userRepository, String secretKey) {
-        Objects.requireNonNull(secretKey, "secret key must be not null");
         this.userRepository = userRepository;
         this.algorithm = Algorithm.HMAC256(secretKey);
     }
@@ -36,6 +35,7 @@ public class SimpleTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         String token = resolveToken(request);
+
         if (Objects.isNull(token)) {
             filterChain.doFilter(request, response);
             return;
@@ -64,13 +64,14 @@ public class SimpleTokenFilter extends GenericFilterBean {
         return verifier.verify(token);
     }
 
-    private void authentication(DecodedJWT jwt) {
+    private Long authentication(DecodedJWT jwt) {
         Long userId = Long.valueOf(jwt.getSubject());
         userRepository.findById(userId).ifPresent(user -> {
             SimpleLoginUser simpleLoginUser = new SimpleLoginUser(user);
             SecurityContextHolder.getContext().setAuthentication(
                     new UsernamePasswordAuthenticationToken(simpleLoginUser, null, simpleLoginUser.getAuthorities()));
         });
+        return userId;
     }
 
 }
