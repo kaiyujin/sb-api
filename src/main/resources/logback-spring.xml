@@ -5,6 +5,11 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
+    <include resource="logback/logback-controller.xml"/>
+    <logger name="com.kaiyujin.sb.common.aop.AspectLog" level="INFO">
+        <appender-ref ref="CONTROLLER" />
+    </logger>
+
     <springProfile name="local">
         <include resource="logback/logback-warn.xml"/>
         <include resource="logback/logback-error.xml"/>
@@ -25,12 +30,16 @@
         <root level="INFO">
             <appender-ref ref="ASYNC_APPLICATION_LOG_FILE"/>
         </root>
+        <!-- SQL -->
+        <logger name="org.seasar.doma" level="ERROR"/>
     </springProfile>
 
     <springProfile name="production">
         <root level="INFO">
             <appender-ref ref="ASYNC_APPLICATION_LOG_FILE"/>
         </root>
+        <!-- SQL -->
+        <logger name="org.seasar.doma" level="ERROR"/>
     </springProfile>
 
 </configuration>
