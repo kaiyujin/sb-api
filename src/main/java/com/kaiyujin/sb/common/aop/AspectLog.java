@@ -16,7 +16,7 @@ public class AspectLog {
     @Before("execution(* com.kaiyujin.sb.controller..*.*(..))")
     public void before(JoinPoint joinPoint) {
         log.info(joinPoint.getTarget().getClass() + "." +
-                joinPoint.getSignature().getName() + " " +
+                joinPoint.getSignature().getName() + "\t" +
                 Arrays.toString(joinPoint.getArgs())
         );
     }
