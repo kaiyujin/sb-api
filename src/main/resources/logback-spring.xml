@@ -6,29 +6,28 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <springProfile name="local">
-        <include resource="logback/logback-file.xml"/>
+        <include resource="logback/logback-warn.xml"/>
+        <include resource="logback/logback-error.xml"/>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="ERROR" />
+            <appender-ref ref="WARN" />
         </root>
     </springProfile>
 
     <springProfile name="dev">
-        <include resource="logback/logback-file.xml"/>
         <root level="INFO">
             <appender-ref ref="ASYNC_APPLICATION_LOG_FILE"/>
         </root>
     </springProfile>
 
     <springProfile name="staging">
-        <include resource="logback/logback-file.xml"/>
         <root level="INFO">
             <appender-ref ref="ASYNC_APPLICATION_LOG_FILE"/>
         </root>
     </springProfile>
 
     <springProfile name="production">
-        <include resource="logback/logback-file.xml"/>
         <root level="INFO">
             <appender-ref ref="ASYNC_APPLICATION_LOG_FILE"/>
         </root>

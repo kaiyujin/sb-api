@@ -1,14 +1,15 @@
-<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+<appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-    <file>./log/error.log</file>
+    <file>./log/warn.log</file>
 
-    <!-- ERRORレベル以上のログのみを出力するためのフィルタ -->
-    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-        <level>ERROR</level>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <level>WARN</level>
+        <onMatch>ACCEPT</onMatch>
+        <onMismatch>DENY</onMismatch>
     </filter>
 
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>./log/logbacktest/error.log..%d{yyyy-MM-dd}
+        <fileNamePattern>./log/warn.log.%d{yyyy-MM-dd}
         </fileNamePattern>
         <maxHistory>14</maxHistory>
     </rollingPolicy>
@@ -18,5 +19,6 @@
     </encoder>
 
 </appender>
+
 <!-- ファイルには出力しないでfirehoseとかに出す-->
 <!-- controller のログも必要　アクセスログとして-->

@@ -14,8 +14,7 @@ spring:
     host: localhost
     port: 6379
   jpa:
-    database: postgresql
-    show-sql: true
+    open-in-view: false
   flyway:
     enabled: true
   profiles:
