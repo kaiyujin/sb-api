@@ -3,14 +3,12 @@ services:
   app:
     build:
       context: .
-      args:
-        - JAR_FILE=./build/libs/api.jar
     environment:
       - profile=local-docker
-    container_name: "sb-api"
+    container_name: "global-api"
     ports:
       - "8080:8080"
-    links:
+    depends_on:
       - db
       - redis
   db:
